@@ -51,8 +51,8 @@ resource "aws_instance" "server" {
   ami           = data.aws_ami.amazon_linux.id
   instance_type = var.instance_type
 
-  subnet_id              = data.terraform_remote_state.vpc.outputs.public_subnet_1.id
-  vpc_security_group_ids = data.terraform_remote_state.vpc.outputs.sg_ec2.id
+  subnet_id              = data.terraform_remote_state.vpc.outputs.public_subnet_1[0]
+  vpc_security_group_ids = data.terraform_remote_state.vpc.outputs.sg_ec2
 
   key_name = aws_key_pair.ssh_key.key_name
 }
