@@ -12,6 +12,6 @@ variable "instance_type" {
 
 variable "ansible_key" {
   description = "Public key ansible"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
