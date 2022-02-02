@@ -44,7 +44,7 @@ data "aws_ami" "amazon_linux" {
 
 resource "aws_key_pair" "ssh_key" {
   key_name   = "ansible_key"
-  public_key = file("../ansible_key.pub")
+  public_key = var.ansible_key
 }
 
 resource "aws_instance" "server" {
