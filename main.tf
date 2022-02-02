@@ -21,7 +21,7 @@ data "terraform_remote_state" "vpc" {
 
   config = {
     organization = "YtseJam"
-    worksworkspaces = {
+    workspaces = {
       name = var.tfc_vpc_workspace_name
     }
   }
