@@ -2,7 +2,7 @@
 cloud_final_modules:
   - [users-groups, always]
 users:
-  - name: ansib;e
+  - name: ansible
     groups: [wheel]
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
     shell: /bin/bash
