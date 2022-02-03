@@ -4,9 +4,10 @@ sudo yum update -y
 sudo adduser ansible
 sudo passwd -d ansible
 sudo usermod -aG wheel ansible
-sudo su - ansible
-mkdir .ssh
-chmod 700 .ssh
-touch .ssh/authorized_keys
-chmod 600 .ssh/authorized_keys
-echo "${ansible_key}" > .ssh/authorized_keys
+
+sudo mkdir /home/ansible/.ssh
+sudo chmod 700 /home/ansible/.ssh
+sudo touch /home/ansible/.ssh/authorized_keys
+sudo chmod 600 /home/ansible/.ssh/authorized_keys
+sudo echo "${ansible_key}" > /home/ansible/.ssh/authorized_keys
+sudo chown -R ansible /home/ansible/.ssh
