@@ -48,6 +48,8 @@ resource "aws_key_pair" "ssh_key" {
 }
 
 resource "aws_instance" "server" {
+  count = 3
+
   ami           = data.aws_ami.amazon_linux.id
   instance_type = var.instance_type
 
