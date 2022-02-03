@@ -10,6 +10,12 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
+variable "dev_key" {
+  description = "Public key dev"
+  type        = string
+  default     = ""
+}
+
 variable "ansible_key" {
   description = "Public key ansible"
   type        = string
