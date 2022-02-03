@@ -51,12 +51,12 @@ resource "aws_key_pair" "ssh_key" {
   public_key = var.dev_key
 }
 
-data "template_file" "user_data" {
-  template = file("cloud_init.yaml")
-  vars = {
-    ansible_key = "${var.ansible_key}"
-  }
-}
+# data "template_file" "user_data" {
+#   template = file("cloud_init.yaml")
+#   vars = {
+#     ansible_key = "${var.ansible_key}"
+#   }
+# }
 
 resource "aws_instance" "server" {
   count = 1
@@ -69,6 +69,6 @@ resource "aws_instance" "server" {
 
   key_name = aws_key_pair.ssh_key.key_name
 
-  # user_data = templatefile("user_data.tftpl", { ansible_key = var.ansible_key })
-  user_data = data.template_file.user_data.rendered
+  user_data = templatefile("user_data.tftpl", { ansible_key = var.ansible_key })
+  # user_data = data.template_file.user_data.rendered
 }
