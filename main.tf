@@ -12,6 +12,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~>3.72.0"
     }
+    template = {
+      source  = "hashicorp/template"
+      version = "2.2.0"
+    }
   }
   required_version = "~>1.1.3"
 }
@@ -47,6 +51,13 @@ resource "aws_key_pair" "ssh_key" {
   public_key = var.dev_key
 }
 
+data "template_file" "user_data" {
+  template = file("cloud-init.yaml")
+  vars = {
+    ansible_key = "${var.ansible_key}"
+  }
+}
+
 resource "aws_instance" "server" {
   count = 1
 
@@ -58,5 +69,6 @@ resource "aws_instance" "server" {
 
   key_name = aws_key_pair.ssh_key.key_name
 
-  user_data = templatefile("user_data.tftpl", { ansible_key = var.ansible_key })
+  # user_data = templatefile("user_data.tftpl", { ansible_key = var.ansible_key })
+  user_data = data.template_file.user_data.rendered
 }
