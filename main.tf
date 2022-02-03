@@ -43,12 +43,12 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_key_pair" "ssh_key" {
-  key_name   = "ansible_key"
-  public_key = var.ansible_key
+  key_name   = "dev_key"
+  public_key = var.dev_key
 }
 
 resource "aws_instance" "server" {
-  count = 3
+  count = 1
 
   ami           = data.aws_ami.amazon_linux.id
   instance_type = var.instance_type
@@ -57,4 +57,6 @@ resource "aws_instance" "server" {
   vpc_security_group_ids = data.terraform_remote_state.vpc.outputs.sg_ec2
 
   key_name = aws_key_pair.ssh_key.key_name
+
+  user_data = templatefile("user_data.tftpl", { ansible_key = var.ansible_key })
 }
