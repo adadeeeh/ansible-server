@@ -52,7 +52,7 @@ resource "aws_key_pair" "ssh_key" {
 }
 
 data "template_file" "user_data" {
-  template = file("cloud-init.yaml")
+  template = file("cloud_init.yaml")
   vars = {
     ansible_key = "${var.ansible_key}"
   }
